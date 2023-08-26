@@ -71,16 +71,17 @@ class PostServiceTest {
     @DisplayName("글 여러개개 조회")
     void test3(){
         //given
-        Post requestPost1 = Post.builder()
-                .title("title1")
-                .content("content1")
-                .build();
-        postRepository.save(requestPost1);
-        Post requestPost2 = Post.builder()
-                .title("title2")
-                .content("content2")
-                .build();
-        postRepository.save(requestPost2);
+        postRepository.saveAll(List.of(
+                Post.builder()
+                        .title("title1")
+                        .content("content1")
+                        .build(),
+                Post.builder()
+                        .title("title2")
+                        .content("content2")
+                        .build()
+        ));
+
         // when
         List<PostResponse> posts = postService.getList();
 
