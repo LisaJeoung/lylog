@@ -3,6 +3,7 @@ package com.lylylog.api.service;
 import com.lylylog.api.domain.Post;
 import com.lylylog.api.repository.PostRepository;
 import com.lylylog.api.request.PostCreate;
+import com.lylylog.api.response.PostResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -55,12 +56,12 @@ class PostServiceTest {
         postRepository.save(requestPost);
 
         // when
-        Post post = postService.get(requestPost.getId());
+        PostResponse response = postService.get(requestPost.getId());
 
         // then
-        assertNotNull(post);
+        assertNotNull(response);
         assertEquals(1L, postRepository.count());
-        assertEquals("ttt", post.getTitle());
-        assertEquals("ccc", post.getContent());
+        assertEquals("ttt", response.getTitle());
+        assertEquals("ccc", response.getContent());
     }
 }

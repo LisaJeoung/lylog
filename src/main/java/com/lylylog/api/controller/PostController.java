@@ -2,6 +2,7 @@ package com.lylylog.api.controller;
 
 import com.lylylog.api.domain.Post;
 import com.lylylog.api.request.PostCreate;
+import com.lylylog.api.response.PostResponse;
 import com.lylylog.api.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,8 @@ public class PostController {
     }
 
     @GetMapping("/posts/{postId}")
-    public Post get(@PathVariable(name = "postId") Long id){
-        Post post = postService.get(id);
-        return post;
+    public PostResponse get(@PathVariable(name = "postId") Long id){
+        PostResponse response = postService.get(id);
+        return response;
     }
 }
