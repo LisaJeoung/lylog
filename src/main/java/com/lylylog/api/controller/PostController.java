@@ -25,9 +25,13 @@ public class PostController {
         postService.write(request);
     }
 
-    @GetMapping("/posts/{postId}")
-    public PostResponse get(@PathVariable(name = "postId") Long id){
-        PostResponse response = postService.get(id);
-        return response;
+    @GetMapping("/posts/{postId}") // 글 하나 조회
+    public PostResponse get(@PathVariable Long postId){
+        return postService.get(postId);
+    }
+
+    @GetMapping("/posts") // 글 여러개 조회
+    public List<PostResponse> getList(){
+        return postService.getList();
     }
 }
