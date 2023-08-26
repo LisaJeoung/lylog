@@ -4,6 +4,7 @@ import com.lylylog.api.domain.Post;
 import com.lylylog.api.repository.PostRepository;
 import com.lylylog.api.request.PostCreate;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ class PostServiceTest {
 
     @Autowired
     private PostRepository postRepository;
+
+    @BeforeEach
+    void clean(){
+        postRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("글 작성")
@@ -38,4 +44,23 @@ class PostServiceTest {
         assertEquals("내용입니다.", post.getContent());
     }
 
+    @Test
+    @DisplayName("글 1개 조회")
+    void test2(){
+        //given
+        Post requestPost = Post.builder()
+                .title("ttt")
+                .content("ccc")
+                .build();
+        postRepository.save(requestPost);
+
+        // when
+        Post post = postService.get(requestPost.getId());
+
+        // then
+        assertNotNull(post);
+        assertEquals(1L, postRepository.count());
+        assertEquals("ttt", post.getTitle());
+        assertEquals("ccc", post.getContent());
+    }
 }
